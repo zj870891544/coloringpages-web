@@ -1,0 +1,14 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 耳朵 -->
+    <path d="M300 200C300 100 250 50 200 100C150 150 200 300 300 300" stroke="black" stroke-width="4"/>
+    <path d="M500 200C500 100 550 50 600 100C650 150 600 300 500 300" stroke="black" stroke-width="4"/>
+    <!-- 头部 -->
+    <circle cx="400" cy="400" r="150" stroke="black" stroke-width="4"/>
+    <!-- 眼睛 -->
+    <circle cx="350" cy="350" r="20" stroke="black" stroke-width="4"/>
+    <circle cx="450" cy="350" r="20" stroke="black" stroke-width="4"/>
+    <!-- 鼻子 -->
+    <circle cx="400" cy="400" r="15" stroke="black" stroke-width="4"/>
+    <!-- 嘴巴 -->
+    <path d="M380 430Q400 450 420 430" stroke="black" stroke-width="4" fill="none"/>
+</svg> 

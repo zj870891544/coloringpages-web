@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Colored Thumbnails</title>
+    <style>
+        .preview {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body style="background: white;">
+    <div id="controls">
+        <h2>Create Colored Thumbnails</h2>
+        <button onclick="convertAll()">Create All Thumbnails</button>
+    </div>
+    
+    <div id="previews"></div>
+    <div id="output"></div>
+
+    <script>
+        // SVG内容
+        const svgContent = {
+            bunny: `<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 耳朵 -->
+                <path d="M300 200C300 100 250 50 200 100C150 150 200 300 300 300" stroke="black" stroke-width="4" fill="#FFC0CB"/>
+                <path d="M500 200C500 100 550 50 600 100C650 150 600 300 500 300" stroke="black" stroke-width="4" fill="#FFC0CB"/>
+                <!-- 头部 -->
+                <circle cx="400" cy="400" r="150" stroke="black" stroke-width="4" fill="#FFE4E1"/>
+                <!-- 眼睛 -->
+                <circle cx="350" cy="350" r="20" stroke="black" stroke-width="4" fill="white"/>
+                <circle cx="450" cy="350" r="20" stroke="black" stroke-width="4" fill="white"/>
+                <!-- 鼻子 -->
+                <circle cx="400" cy="400" r="15" stroke="black" stroke-width="4" fill="#FFB6C1"/>
+                <!-- 嘴巴 -->
+                <path d="M380 430Q400 450 420 430" stroke="black" stroke-width="4" fill="none"/>
+            </svg>`,
+            
+            cat: `<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 耳朵 -->
+                <path d="M300 250L200 150L300 350" stroke="black" stroke-width="4" fill="#FF8C00"/>
+                <path d="M500 250L600 150L500 350" stroke="black" stroke-width="4" fill="#FF8C00"/>
+                <!-- 头部 -->
+                <circle cx="400" cy="400" r="150" stroke="black" stroke-width="4" fill="#FFA500"/>
+                <!-- 眼睛 -->
+                <path d="M350 350L320 330M350 350L320 370" stroke="black" stroke-width="4"/>
+                <path d="M450 350L480 330M450 350L480 370" stroke="black" stroke-width="4"/>
+                <!-- 鼻子 -->
+                <path d="M390 400L410 400L400 410Z" stroke="black" stroke-width="4" fill="#FF4500"/>
+                <!-- 胡须 -->
+                <path d="M300 400L350 390M300 410L350 420" stroke="black" stroke-width="4"/>
+                <path d="M500 400L450 390M500 410L450 420" stroke="black" stroke-width="4"/>
+            </svg>`,
+            
+            house: `<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 房顶 -->
+                <path d="M200 400L400 200L600 400" stroke="black" stroke-width="4" fill="#8B4513"/>
+                <!-- 房子主体 -->
+                <rect x="250" y="400" width="300" height="200" stroke="black" stroke-width="4" fill="#DEB887"/>
+                <!-- 门 -->
+                <rect x="350" y="450" width="100" height="150" stroke="black" stroke-width="4" fill="#A0522D"/>
+                <!-- 窗户 -->
+                <rect x="275" y="450" width="50" height="50" stroke="black" stroke-width="4" fill="#87CEEB"/>
+                <rect x="475" y="450" width="50" height="50" stroke="black" stroke-width="4" fill="#87CEEB"/>
+            </svg>`
+        };
+
+        function createColoredThumbnail(svgName) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 800;
+                canvas.height = 800;
+                const ctx = canvas.getContext('2d');
+                
+                // 设置背景色
+                ctx.fillStyle = '#F5F5F7';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // 创建SVG Blob
+                const svgBlob = new Blob([svgContent[svgName]], {type: 'image/svg+xml'});
+                const url = URL.createObjectURL(svgBlob);
+                
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    URL.revokeObjectURL(url);
+                    
+                    // 创建预览
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'preview';
+                    previewDiv.innerHTML = `
+                        <h3>${svgName} thumbnail</h3>
+                        <img src="${canvas.toDataURL('image/jpeg', 0.9)}" style="width: 200px; height: 200px;">
+                    `;
+                    document.getElementById('previews').appendChild(previewDiv);
+                    
+                    // 创建下载链接
+                    const link = document.createElement('a');
+                    link.download = `${svgName}_thumb.jpg`;
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                    link.innerHTML = `Download ${svgName}_thumb.jpg<br>`;
+                    document.getElementById('output').appendChild(link);
+                    
+                    resolve();
+                };
+                img.src = url;
+            });
+        }
+
+        async function convertAll() {
+            document.getElementById('previews').innerHTML = '';
+            document.getElementById('output').innerHTML = '';
+            
+            for (const svgName of Object.keys(svgContent)) {
+                await createColoredThumbnail(svgName);
+            }
+        }
+    </script>
+</body>
+</html> 

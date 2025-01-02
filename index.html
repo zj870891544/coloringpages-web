@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线填色 - 创意绘画平台</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <div class="logo">花瓣填色</div>
+            <nav class="main-nav">
+                <a href="/" class="active">首页</a>
+                <a href="/gallery">线稿库</a>
+                <a href="/popular">热门线稿</a>
+                <a href="/works">网友作品</a>
+                <a href="/my">我的填色</a>
+            </nav>
+            <div class="user-actions">
+                <input type="search" placeholder="搜索线稿..." class="search-input">
+                <button class="btn login">登录</button>
+                <button class="btn register">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <aside class="categories">
+            <h3>线稿分类</h3>
+            <ul>
+                <li><a href="/category/people">人物 <span>18</span></a></li>
+                <li><a href="/category/farm">农场人物 <span>7</span></a></li>
+                <li><a href="/category/ethnic">民族人物形象 <span>16</span></a></li>
+                <li><a href="/category/groups">多人物组图 <span>7</span></a></li>
+                <li><a href="/category/european">欧洲古代人物 <span>7</span></a></li>
+                <li><a href="/category/animals">动物 <span>10</span></a></li>
+            </ul>
+        </aside>
+
+        <section class="gallery">
+            <h2>最新线稿</h2>
+            <div class="gallery-grid">
+                <!-- 这里会通过JavaScript动态加载线稿缩略图 -->
+            </div>
+        </section>
+    </main>
+
+    <!-- 填色工具界面，初始隐藏 -->
+    <div class="coloring-interface" style="display: none;">
+        <div class="toolbar left">
+            <div class="tool" data-tool="fill">
+                <img src="icons/fill.svg" alt="填充">
+                <span>填充</span>
+            </div>
+            <div class="tool" data-tool="eraser">
+                <img src="icons/eraser.svg" alt="橡皮">
+                <span>橡皮</span>
+            </div>
+            <div class="tool" data-tool="eyedropper">
+                <img src="icons/eyedropper.svg" alt="取色器">
+                <span>取色</span>
+            </div>
+            <div class="tool" data-tool="prev">
+                <img src="icons/prev.svg" alt="上一步">
+                <span>上一步</span>
+            </div>
+            <div class="tool" data-tool="next">
+                <img src="icons/next.svg" alt="下一步">
+                <span>下一步</span>
+            </div>
+            <div class="tool" data-tool="undo">
+                <img src="icons/undo.svg" alt="撤销">
+                <span>撤销</span>
+            </div>
+            <div class="tool" data-tool="redo">
+                <img src="icons/clear.svg" alt="清空">
+                <span>清空</span>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="mainCanvas"></canvas>
+        </div>
+
+        <div class="toolbar right">
+            <div class="color-picker">
+                <!-- 内容会由 JavaScript 动态生成 -->
+            </div>
+            <div class="actions">
+                <button id="saveBtn" class="btn">保存</button>
+                <button id="shareBtn" class="btn">分享</button>
+                <button id="downloadBtn" class="btn">下载</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>©2024 花瓣填色 - 让创意绽放</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="gallery.js"></script>
+</body>
+</html> 

@@ -1,0 +1,648 @@
+/* 重置样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全局样式 */
+:root {
+    --primary-color: #007AFF;
+    --background-color: #F5F5F7;
+    --toolbar-bg: #ffffff;
+    --border-radius: 10px;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: #333;
+}
+
+/* 应用容器 */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 顶部栏 */
+.top-bar {
+    height: 60px;
+    background: var(--toolbar-bg);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    background: #E9E9EB;
+    transition: all 0.2s;
+}
+
+.btn.primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 工作区 */
+.workspace {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* 工具栏 */
+.toolbar {
+    width: 80px;
+    background: var(--toolbar-bg);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.tool:hover {
+    background-color: #F5F5F7;
+}
+
+.tool img {
+    width: 24px;
+    height: 24px;
+}
+
+.tool span {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 画布容器 */
+.canvas-container {
+    position: relative;
+    flex: 1;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+#mainCanvas {
+    transform-origin: center;
+    transition: transform 0.1s ease;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 右侧颜色面板 */
+.toolbar.right {
+    width: 200px;
+}
+
+.color-picker {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.label {
+    font-size: 14px;
+    color: #666;
+}
+
+.color-mode-switch {
+    display: flex;
+    gap: 2px;
+    background: #f0f0f0;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.color-mode-switch button {
+    flex: 1;
+    padding: 6px 0;
+    border: none;
+    background: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.color-mode-switch button.active {
+    background: #ff4757;
+    color: white;
+}
+
+.strength-slider {
+    padding: 5px 0;
+}
+
+.strength-slider .slider-track {
+    display: flex;
+    gap: 2px;
+    height: 15px;
+}
+
+.strength-bar {
+    flex: 1;
+    background: #e0e0e0;
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+.strength-bar.active {
+    background: #ff4757;
+}
+
+.strength-slider input {
+    position: absolute;
+    width: 100%;
+    height: 15px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.color-preview {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 0;
+}
+
+.color-selector {
+    position: relative;
+}
+
+.color-map {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    background-size: 100% 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.hue-slider {
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to right, 
+        #ff0000 0%, #ffff00 17%, #00ff00 33%, 
+        #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    border-radius: 10px;
+    position: relative;
+}
+
+.hue-slider input {
+    width: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* 网站头部 */
+.site-header {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.main-nav a.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+}
+
+/* 主要内容区 */
+.main-content {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+/* 分类侧边栏 */
+.categories {
+    width: 200px;
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.categories h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.categories ul {
+    list-style: none;
+    padding: 0;
+}
+
+.categories li {
+    margin-bottom: 10px;
+}
+
+.categories a {
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.categories a:hover {
+    background: #f5f5f7;
+}
+
+.categories span {
+    color: #999;
+}
+
+/* 画廊网格 */
+.gallery {
+    flex: 1;
+}
+
+.gallery h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* 填色界面优化 */
+.coloring-interface {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--background-color);
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* 页脚 */
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    margin-top: 40px;
+}
+
+/* 线稿卡片样式 */
+.template-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.template-card:hover {
+    transform: translateY(-5px);
+}
+
+.template-image {
+    position: relative;
+    padding-top: 100%; /* 1:1 宽高比 */
+    overflow: hidden;
+}
+
+.template-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.template-info {
+    padding: 15px;
+}
+
+.template-info h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.template-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* 修改画廊网格样式 */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* 优化按钮样式 */
+.template-card .btn.primary {
+    width: 100%;
+    text-align: center;
+}
+
+/* 修改颜色滑块样式 */
+.color-slider {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.color-slider input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.color-slider-track {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(to right,
+        #FF0000 0%,    /* 红 */
+        #FF00FF 16.67%,/* 品红 */
+        #0000FF 33.33%,/* 蓝 */
+        #00FFFF 50%,   /* 青 */
+        #00FF00 66.67%,/* 绿 */
+        #FFFF00 83.33%,/* 黄 */
+        #FF0000 100%   /* 红 */
+    );
+}
+
+.color-slider-thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+/* 添加颜色选择指示器 */
+.color-picker-indicator {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
+}
+
+/* 缩放控制按钮样式 */
+.canvas-zoom-controls {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.canvas-zoom-controls button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.canvas-zoom-controls button:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+/* 添加上传按钮样式 */
+.upload-section {
+    margin-bottom: 15px;
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-btn:hover {
+    opacity: 0.9;
+}
+
+.upload-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.upload-btn span {
+    font-size: 14px;
+}
+
+/* 确认对话框样式 */
+.confirmation-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.dialog-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.dialog-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+}
+
+.dialog-body {
+    padding: 20px;
+}
+
+.warning-text {
+    color: #FF3B30;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.dialog-footer {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.dialog-footer button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-btn {
+    background: linear-gradient(to right, #FF416C, #FF4B2B);
+    color: white;
+}
+
+.cancel-btn {
+    background: #eee;
+    color: #333;
+}
+
+.confirm-btn:hover {
+    opacity: 0.9;
+}
+
+.cancel-btn:hover {
+    background: #e0e0e0;
+}
