@@ -30,8 +30,7 @@
    - 响应式设计
    - 直观的操作方式
 
-## 项目结构 
-coloringpages-web/
+## 项目结构 coloringpages-web/
 ├── index.html # 主页面
 ├── styles.css # 样式文件
 ├── app.js # 主应用逻辑
